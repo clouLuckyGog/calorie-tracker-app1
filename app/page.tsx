@@ -18,11 +18,7 @@ interface User {
   user_id: string;
   username: string;
 }
-interface CalorieEntry {
-  calories: number;
-  date: string; // ISO 格式的日期字符串
-  user_id: string;
-}
+
 export default function Page() {
   const [entries, setEntries] = useState<Entry[]>([]);
   const [user, setUser] = useState<User | null>(null);
