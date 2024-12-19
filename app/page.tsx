@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect } from "react";
-import InputForm from "@/components/InputForm";
 import TrendChart from "@/components/TrendChart";
 import SummaryCard from "@/components/SummaryCard";
 import Calendar from "@/components/Calendar";
