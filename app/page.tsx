@@ -24,32 +24,30 @@ export default function Page() {
   const [chartType, setChartType] = useState<"day" | "week" | "month">("day");
 
   useEffect(() => {
-    if (user) {
-      fetchCalories();
-    }
+    const fetchCalories = async () => {
+      if (!user) return;
+
+      const { data, error } = await supabase
+        .from("calorie_entries")
+        .select("*")
+        .eq("user_id", user.user_id);
+
+      if (error) {
+        console.error("Error fetching calories:", error.message);
+        return;
+      }
+
+      setEntries(
+        data.map((entry: any) => ({
+          calories: entry.calories,
+          time: new Date(entry.date),
+          date: entry.date,
+        }))
+      );
+    };
+
+    fetchCalories();
   }, [user]);
-
-  const fetchCalories = async () => {
-    if (!user) return;
-
-    const { data, error } = await supabase
-      .from("calorie_entries")
-      .select("*")
-      .eq("user_id", user.user_id);
-
-    if (error) {
-      console.error("Error fetching calories:", error.message);
-      return;
-    }
-
-    setEntries(
-      data.map((entry: any) => ({
-        calories: entry.calories,
-        time: new Date(entry.date),
-        date: entry.date,
-      }))
-    );
-  };
 
   const handleLogin = async (loginInfo: {
     username: string;
