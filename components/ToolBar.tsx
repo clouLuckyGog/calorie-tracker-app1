@@ -105,7 +105,7 @@ const ExpandableToolbar: React.FC<ExpandableToolbarProps> = ({
             <h2 className="text-lg font-semibold mb-4">Login</h2>
             <input
               type="text"
-              placeholder="Email"
+              placeholder="username"
               value={loginInfo.username}
               onChange={(e) =>
                 setLoginInfo({ ...loginInfo, username: e.target.value })
@@ -146,7 +146,7 @@ const ExpandableToolbar: React.FC<ExpandableToolbarProps> = ({
             <h2 className="text-lg font-semibold mb-4">Sign Up</h2>
             <input
               type="text"
-              placeholder="Email"
+              placeholder="username"
               value={loginInfo.username}
               onChange={(e) =>
                 setLoginInfo({ ...loginInfo, username: e.target.value })

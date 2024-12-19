@@ -78,7 +78,6 @@ export default function Page() {
   }) => {
     const { data, error } = await supabase.from("users_m").insert([
       {
-        user_id: crypto.randomUUID(),
         username: signUpInfo.username,
         password: signUpInfo.password,
       },
