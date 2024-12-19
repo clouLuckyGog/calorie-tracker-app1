@@ -8,6 +8,7 @@ import ExpandableToolbar from "@/components/ToolBar";
 import { supabase } from "@/lib/supabaseClient";
 
 interface Entry {
+  user_id: string;
   calories: number;
   time: Date;
   date: string;
@@ -17,7 +18,11 @@ interface User {
   user_id: string;
   username: string;
 }
-
+interface CalorieEntry {
+  calories: number;
+  date: string; // ISO 格式的日期字符串
+  user_id: string;
+}
 export default function Page() {
   const [entries, setEntries] = useState<Entry[]>([]);
   const [user, setUser] = useState<User | null>(null);
@@ -38,7 +43,8 @@ export default function Page() {
       }
 
       setEntries(
-        data.map((entry: any) => ({
+        (data as Entry[]).map((entry) => ({
+          user_id: user.user_id,
           calories: entry.calories,
           time: new Date(entry.date),
           date: entry.date,
@@ -121,6 +127,7 @@ export default function Page() {
     setEntries([
       ...entries,
       {
+        user_id: user.user_id,
         calories: entry.calories,
         time: entry.time,
         date: entry.time.toLocaleDateString(),
