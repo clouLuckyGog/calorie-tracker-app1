@@ -3,7 +3,10 @@ import { PlusIcon } from "@radix-ui/react-icons";
 import { FaRegUserCircle } from "react-icons/fa";
 
 interface ExpandableToolbarProps {
-  user: any; // 当前用户信息
+  user: {
+    user_id: string;
+    username: string;
+  } | null;
   onLogin: (loginInfo: { username: string; password: string }) => void;
   onSignUp: (signUpInfo: { username: string; password: string }) => void;
   onLogout: () => void;
