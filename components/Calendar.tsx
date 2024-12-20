@@ -22,36 +22,36 @@ export default function Calendar() {
   }
 
   return (
-    <div
-      className={`relative bg-white py-6 px-4 rounded-lg shadow-md ${
-        weekDates.some((item) => item.isToday)
-          ? "before:bg-indigo-400"
-          : "before:bg-transparent"
-      } before:absolute before:inset-0 before:rounded-lg before:z-[-1]`}
-    >
-      {/* 曜日 */}
-      <div className="grid grid-cols-7 gap-4 sm:gap-6 md:gap-8 lg:gap-20 w-full md:max-w-md lg:max-w-lg">
-        {weekDates.map((item, index) => (
-          <span
-            key={`day-${index}`}
-            className="text-center font-bold text-xl md:text-base text-gray-400"
-          >
-            {item.day}
-          </span>
-        ))}
+      <div className={`relative bg-white py-6 px-4 rounded-lg shadow-md`}>
+          <div className="grid grid-cols-7 gap-4 sm:gap-6 md:gap-8 lg:gap-20 w-full md:max-w-md lg:max-w-lg">
+              {weekDates.map((item, index) => (
+                  <div
+                      className={`flex flex-col gap-y-3 ${
+                          item.isToday
+                              ? 'bg-indigo-400 text-white rounded-lg'
+                              : 'bg-transparent'
+                      }`}
+                      key={index}
+                  >
+                      <span
+                          key={`day-${index}`}
+                          className={`text-center font-bold text-xl md:text-base ${
+                              !item.isToday ? 'text-gray-400' : ''
+                          }`}
+                      >
+                          {item.day}
+                      </span>
+                      <span
+                          key={`date-${index}`}
+                          className={`text-center font-bold text-xl md:text-base ${
+                              !item.isToday ? 'text-indigo-400' : ''
+                          }`}
+                      >
+                          {item.date}
+                      </span>
+                  </div>
+              ))}
+          </div>
       </div>
-
-      {/* 日付 */}
-      <div className="grid grid-cols-7 gap-4 sm:gap-6 md:gap-8 lg:gap-20 w-full md:max-w-md lg:max-w-lg mt-4">
-        {weekDates.map((item, index) => (
-          <span
-            key={`date-${index}`}
-            className="text-center font-bold text-xl md:text-base text-indigo-400"
-          >
-            {item.date}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
+  )
 }

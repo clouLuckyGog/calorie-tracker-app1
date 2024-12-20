@@ -1,43 +1,87 @@
 import React from "react";
+import {
+    LineChart,
+    Line,
+    XAxis,
+    YAxis,
+    Tooltip,
+    Legend,
+    ResponsiveContainer,
+    LabelList,
+} from 'recharts'
 
-interface TrendChartProps {
-  title: string;
-  data: { date: string; calories: number }[];
-}
+// interface TrendChartProps {
+//     title: string
+//     data: { date: string; calories: number }[]
+// }
 
-export default function TrendChart({ title, data }: TrendChartProps) {
-  const width = 400;
-  const height = 200;
+const data = [
+    {
+        name: 'Page A',
+        uv: 4000,
+        pv: 2400,
+        amt: 2400,
+    },
+    {
+        name: 'Page B',
+        uv: 3000,
+        pv: 1398,
+        amt: 2210,
+    },
+    {
+        name: 'Page C',
+        uv: 2000,
+        pv: 9800,
+        amt: 2290,
+    },
+    {
+        name: 'Page D',
+        uv: 2780,
+        pv: 3908,
+        amt: 2000,
+    },
+    {
+        name: 'Page E',
+        uv: 1890,
+        pv: 4800,
+        amt: 2181,
+    },
+    {
+        name: 'Page F',
+        uv: 2390,
+        pv: 3800,
+        amt: 2500,
+    },
+    {
+        name: 'Page G',
+        uv: 3490,
+        pv: 4300,
+        amt: 2100,
+    },
+]
 
-  const maxCalories = Math.max(...data.map((d) => d.calories), 0);
-  const points = data
-    .map((d, i) => {
-      const x = (i / (data.length - 1)) * width;
-      const y = height - (d.calories / maxCalories) * height;
-      return `${x},${y}`;
-    })
-    .join(" ");
-
-  return (
-    <div className="p-4 bg-white rounded-lg shadow-md">
-      <h2 className="text-lg font-bold mb-4">{title}</h2>
-      <svg
-        className="w-full h-auto"
-        viewBox={`0 0 ${width} ${height}`}
-        preserveAspectRatio="xMidYMid meet"
-      >
-        <polyline
-          fill="none"
-          stroke="#3b82f6"
-          strokeWidth="2"
-          points={points}
-        />
-        {data.map((d, i) => {
-          const x = (i / (data.length - 1)) * width;
-          const y = height - (d.calories / maxCalories) * height;
-          return <circle key={i} cx={x} cy={y} r="4" fill="#3b82f6" />;
-        })}
-      </svg>
-    </div>
-  );
+export default function TrendChart() {
+    return (
+        <div className="bg-white rounded p-3 md:p-8 lg:p-8">
+            <ResponsiveContainer width={'100%'} height={300}>
+                <LineChart data={data} margin={{ top: 20 }}>
+                    <XAxis dataKey="name" padding={{ left: 30, right: 30 }} />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Line
+                        type="monotone"
+                        dataKey="pv"
+                        stroke="#8884d8"
+                        activeDot={{ r: 8 }}
+                    >
+                        <LabelList position="top" offset={10} />
+                    </Line>
+                    <Line type="monotone" dataKey="uv" stroke="#82ca9d">
+                        <LabelList position="top" offset={10} />
+                    </Line>
+                </LineChart>
+            </ResponsiveContainer>
+        </div>
+    )
 }
